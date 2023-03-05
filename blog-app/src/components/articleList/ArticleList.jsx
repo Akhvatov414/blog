@@ -4,10 +4,12 @@ import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
 import ArticleItem from '../articleItem/ArticleItem';
+import PaginationList from '../pagination/PaginationList';
 
 import style from './index.module.scss';
 
 const ArticleList = ({ getArticles, articles, page = 1 }) => {
+  console.log(articles);
   useEffect(() => {
     getArticles(page);
   }, [getArticles, page]);
@@ -17,11 +19,11 @@ const ArticleList = ({ getArticles, articles, page = 1 }) => {
       <ArticleItem data={i} />
     </li>
   ));
-  console.log(getList);
   return <div className={style.wrapperList}>
     <ul className='List'>
       {getList}
     </ul>
+    <PaginationList currentPage = {page} />
   </div>;
 };
 
