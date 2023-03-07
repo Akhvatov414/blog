@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'uuid';
-
 const url = 'https://blog.kata.academy/api';
 
 const setArtList = (articles, totalCount) => ({
@@ -7,6 +5,11 @@ const setArtList = (articles, totalCount) => ({
   articles,
   totalCount,
 });
+
+// const setArticle = (article) => ({
+//   type: 'setArticle',
+//   article,
+// });
 
 export const getArticles =
   (page = 1) =>
@@ -27,16 +30,17 @@ export const getArticles =
   };
 
 export const getArticle = async (slug) => {
-  const req = await fetch(`${url}/articles/${slug}`, {
-    headers: {
-      Accept: 'application/json',
-      'Content-type': 'application/json',
-    },
-  });
-  const { article } = await req.json();
-  const tags = article.tagList.map((tag) => ({
-    tag,
-    id: uuidv4(),
-  }));
-  return { ...article, tagList: tags };
+  try {
+    const req = await fetch(`${url}/articles/${slug}`, {
+      headers: {
+        Accept: 'application/json',
+        'Content-type': 'application/json',
+      },
+    });
+    const { article } = await req.json();
+    return { ...article };
+    //dispatch(setArticle(article));
+  } catch (e) {
+    console.log(e);
+  }
 };

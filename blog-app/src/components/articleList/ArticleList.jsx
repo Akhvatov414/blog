@@ -9,7 +9,6 @@ import PaginationList from '../pagination/PaginationList';
 import style from './index.module.scss';
 
 const ArticleList = ({ getArticles, articles, page = 1 }) => {
-  console.log(articles);
   useEffect(() => {
     getArticles(page);
   }, [getArticles, page]);
