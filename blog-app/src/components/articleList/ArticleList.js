@@ -1,5 +1,4 @@
-import React from 'react';
-import { useEffect } from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../../store/actions';
@@ -18,12 +17,12 @@ const ArticleList = ({ getArticles, articles, page = 1 }) => {
       <ArticleItem data={i} />
     </li>
   ));
-  return <div className={style.wrapperList}>
-    <ul className='List'>
-      {getList}
-    </ul>
-    <PaginationList currentPage = {page} />
-  </div>;
+  return (
+    <div className={style.wrapperList}>
+      <ul className="List">{getList}</ul>
+      <PaginationList currentPage={page} />
+    </div>
+  );
 };
 
 const mapStateToProps = (state) => ({

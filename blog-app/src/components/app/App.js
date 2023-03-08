@@ -8,6 +8,8 @@ import * as actions from '../../store/actions';
 import routes from '../routes';
 import './index.module.scss';
 import ArticleRead from '../articleRead/ArticleRead';
+import SignIn from '../signIn/SignIn';
+import SignUp from '../signUp/SignUp';
 
 const App = () => {
   return (
@@ -21,13 +23,17 @@ const App = () => {
               const { slug } = match.params;
               return <ArticleRead slug={slug} />;
             }}
+            exact
           />
+          <Route path={routes.signIn} component={SignIn} />
+          <Route path={routes.signUp} component={SignUp} />
           <Route
             path={routes.base}
             render={({ match }) => {
               const { page } = match.params;
               return <ArticleList page={page} />;
             }}
+            exact
           />
         </Switch>
       </div>

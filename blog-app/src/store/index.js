@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 
 import articleReducer from './reducers/articleReducer';
 import articlesReducer from './reducers/articlesReducer';
+import loginReducer from './reducers/loginReducer';
 
 const composeEnhancers =
   typeof window === 'object' && window.__REDUX_DEVTOOLS_EXTENSION_COMPOSE__
@@ -14,6 +15,7 @@ const composeEnhancers =
 const reducerList = combineReducers({
   articles: articlesReducer,
   article: articleReducer,
+  userData: loginReducer,
 });
 
 const store = createStore(reducerList, composeEnhancers(applyMiddleware(thunk)));
