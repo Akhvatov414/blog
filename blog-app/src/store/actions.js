@@ -39,6 +39,8 @@ export const regUser = async (username, email, password) => {
     }),
   });
   const res = await req.json();
+  console.log(res);
+  console.log('Success!' + ' ' + `${username} ${email} ${password}`);
   return res;
 };
 
@@ -57,6 +59,7 @@ export const signIn = (email, password) => async (dispatch) => {
     }),
   });
   const res = await req.json();
+  console.log(res);
   if (!res.errors) {
     const {
       user: { username, token, image },

@@ -41,20 +41,26 @@ function SignUp({ history }) {
               type: 'server',
               message: res.errors.password,
             });
+            console.log(errors);
           }
           return;
         }
         toast.success('Success!!!');
         history.push(routes.signIn);
       })
-      .catch((e) => toast.error(e.message));
+      .catch((e) => {
+        console.log(errors);
+        toast.error(e.message);
+      });
     reset();
   };
-  console.log(errors);
   return (
     <div className="regPage">
       <div className="regTitle">Create new account</div>
       <form name="regForm" className="regPage__form" onSubmit={handleSubmit(onSubmit)}>
+        <label htmlFor="username" className="regForm__field">
+          Username
+        </label>
         <input
           id="username"
           type="text"
@@ -69,6 +75,9 @@ function SignUp({ history }) {
             },
           })}
         />
+        <label htmlFor="email" className="regForm__field">
+          Email
+        </label>
         <input
           type="email"
           placeholder="email address"
@@ -80,6 +89,9 @@ function SignUp({ history }) {
             },
           })}
         />
+        <label htmlFor="password" className="regForm__field">
+          Password
+        </label>
         <input
           id="password"
           type="password"
@@ -90,6 +102,9 @@ function SignUp({ history }) {
             maxLength: 40,
           })}
         />
+        <label htmlFor="checkbox" className="regForm__field">
+          Confirm password
+        </label>
         <input
           id="confirmPassword"
           type="password"
@@ -108,22 +123,10 @@ function SignUp({ history }) {
             required: 'Agreement is required',
           })}
         />
-        <input type="submit" className="regForm__submit" value="Create" />
-        <label htmlFor="username" className="regForm__field">
-          Username
-        </label>
-        <label htmlFor="email" className="regForm__field">
-          Email
-        </label>
-        <label htmlFor="password" className="regForm__field">
-          Password
-        </label>
-        <label htmlFor="confirmPassword" className="regForm__field">
-          Confirm password
-        </label>
         <label htmlFor="checkbox" className="regForm__checkbox">
-          Confirm password
+          I agree to the processing of my personal information
         </label>
+        <input type="submit" className="regForm__submit" value="Create" />
       </form>
     </div>
   );

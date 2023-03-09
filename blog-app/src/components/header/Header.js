@@ -1,9 +1,14 @@
 import React from 'react';
+import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
+
+import * as actions from '../../store/actions';
 
 import style from './index.module.scss';
 
-const Header = ({ history }) => {
+const Header = ({ history, isAuth, userData }) => {
+  console.log(isAuth);
+  console.log(userData);
   return (
     <div className={style.header}>
       <h1 className={style.header__title} onClick={() => history.push('/')}>
@@ -21,4 +26,9 @@ const Header = ({ history }) => {
   );
 };
 
-export default withRouter(Header);
+const mapStateToProps = (state) => ({
+  isAuth: state.userData.isAuth,
+  userData: state.userData.userData,
+});
+
+export default connect(mapStateToProps, actions)(withRouter(Header));
