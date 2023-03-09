@@ -13,9 +13,9 @@ const setArtList = (articles, totalCount) => ({
 //   article,
 // });
 
-const setLogIn = (isAuth) => ({
+export const setLogIn = (status) => ({
   type: 'setLogIn',
-  isAuth,
+  status,
 });
 
 const setUserData = (username, email, image = null) => ({
@@ -107,4 +107,46 @@ export const getArticle = async (slug) => {
   } catch (e) {
     console.log(e);
   }
+};
+
+export const createArticle = async (title, description, body, tagList) => {
+  const token = getToken();
+  const res = await fetch(`${url}/articles/`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      article: {
+        title,
+        description,
+        body,
+        tagList,
+      },
+    }),
+  });
+  return res;
+};
+
+export const editProfile = async (username, email, password) => {
+  const token = getToken();
+  const req = await fetch(`${url}/users`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      user: {
+        username,
+        email,
+        password,
+      },
+    }),
+  });
+  const res = await req.json();
+  return res;
 };

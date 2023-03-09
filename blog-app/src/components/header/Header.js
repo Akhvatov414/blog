@@ -1,14 +1,41 @@
 import React from 'react';
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
+import { Link, withRouter } from 'react-router-dom';
 
+import { removeToken } from '../../services/authAPI';
 import * as actions from '../../store/actions';
+import defaultAvatar from '../icon/profile.png';
 
 import style from './index.module.scss';
 
-const Header = ({ history, isAuth, userData }) => {
-  console.log(isAuth);
-  console.log(userData);
+const Header = ({ history, isAuth, userData, setLogIn }) => {
+  const { username, image } = userData;
+  const logOut = () => {
+    removeToken();
+    setLogIn(false);
+  };
+  console.log(username, image);
+  if (isAuth) {
+    return (
+      <div className={style.header}>
+        <h1 className={style.header__title} onClick={() => history.push('/')}>
+          Realworld Blog
+        </h1>
+        <div className={style.header__menu}>
+          <button type="button" onClick={() => history.push('/create-article')}>
+            Create article
+          </button>
+          <Link to="/profile" className="header__wrapper">
+            <div>{username}</div>
+            <img src={image || defaultAvatar} className={style.header__userImg} alt="Avatar" />
+          </Link>
+          <button type="button" onClick={logOut}>
+            Log Out
+          </button>
+        </div>
+      </div>
+    );
+  }
   return (
     <div className={style.header}>
       <h1 className={style.header__title} onClick={() => history.push('/')}>

@@ -14,7 +14,7 @@ const loginReducer = (state = initialState, action = {}) => {
     case SET_USER_DATA:
       return { ...state, userData: action.userData };
     case SET_LOG_IN:
-      return { ...state, isAuth: action.auth };
+      return { ...state, isAuth: action.status };
     default:
       return state;
   }

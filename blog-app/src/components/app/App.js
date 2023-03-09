@@ -10,6 +10,7 @@ import './index.module.scss';
 import ArticleRead from '../articleRead/ArticleRead';
 import SignIn from '../signIn/SignIn';
 import SignUp from '../signUp/SignUp';
+import Profile from '../profile/Profile';
 
 const App = () => {
   return (
@@ -35,6 +36,7 @@ const App = () => {
             }}
             exact
           />
+          <Route path={routes.profile} component={Profile} />
         </Switch>
       </div>
     </Router>
