@@ -1,4 +1,4 @@
-import { getToken, setToken } from '../services/authAPI';
+import { getToken, removeToken, setToken } from '../services/authAPI';
 
 const url = 'https://blog.kata.academy/api';
 
@@ -18,7 +18,57 @@ export const setLogIn = (status) => ({
   status,
 });
 
-const setUserData = (username, email, image = null) => ({
+export const validateUser = () => async (dispatch) => {
+  const token = getToken();
+  const req = await fetch(`${url}/user`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+  });
+  if (req.status === 200) {
+    const {
+      user: { username, email, token, image },
+    } = await req.json();
+    setToken(token);
+    dispatch(setUserData(username, email, image));
+    dispatch(setLogIn(true));
+  }
+  if (req.status === 401) {
+    dispatch(setUserData(null, null, null));
+    dispatch(setLogIn(false));
+    removeToken();
+  }
+};
+
+export const editProfile = async (username, email, password, image) => {
+  const token = getToken();
+  getUserData();
+  const req = await fetch(`${url}/user`, {
+    method: 'PUT',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      user: {
+        username,
+        email,
+        password,
+        image,
+      },
+    }),
+  });
+  console.log(req);
+  const res = await req.json();
+  console.log(res);
+  return res;
+};
+
+export const setUserData = (username, email, image = null) => ({
   type: 'setUserData',
   userData: { username, email, image },
 });
@@ -130,22 +180,15 @@ export const createArticle = async (title, description, body, tagList) => {
   return res;
 };
 
-export const editProfile = async (username, email, password) => {
+export const getUserData = async () => {
   const token = getToken();
-  const req = await fetch(`${url}/users`, {
-    method: 'PUT',
+  const req = await fetch('https://blog.kata.academy/api/user', {
+    method: 'GET',
     headers: {
       Authorization: `Token ${token}`,
       Accept: 'application/json',
       'Content-type': 'application/json',
     },
-    body: JSON.stringify({
-      user: {
-        username,
-        email,
-        password,
-      },
-    }),
   });
   const res = await req.json();
   return res;

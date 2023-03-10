@@ -9,7 +9,6 @@ import * as actions from '../../store/actions';
 import 'react-toastify/dist/ReactToastify.css';
 
 const SignIn = ({ signIn, history }) => {
-  console.log(history);
   const {
     register,
     formState: { errors },

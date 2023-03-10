@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
 
@@ -11,8 +11,14 @@ import ArticleRead from '../articleRead/ArticleRead';
 import SignIn from '../signIn/SignIn';
 import SignUp from '../signUp/SignUp';
 import Profile from '../profile/Profile';
+import { getToken } from '../../services/authAPI';
 
-const App = () => {
+const App = ({ validateUser }) => {
+  useEffect(() => {
+    if (getToken()) {
+      validateUser();
+    }
+  });
   return (
     <Router>
       <div className="app">

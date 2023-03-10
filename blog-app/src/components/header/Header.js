@@ -14,7 +14,6 @@ const Header = ({ history, isAuth, userData, setLogIn }) => {
     removeToken();
     setLogIn(false);
   };
-  console.log(username, image);
   if (isAuth) {
     return (
       <div className={style.header}>
