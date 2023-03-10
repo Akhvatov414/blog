@@ -159,10 +159,44 @@ export const getArticle = async (slug) => {
   }
 };
 
+export const deleteArticle = async (slug) => {
+  const token = getToken();
+  const res = await fetch(`${url}/articles/${slug}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+  });
+  return res;
+};
+
 export const createArticle = async (title, description, body, tagList) => {
   const token = getToken();
   const res = await fetch(`${url}/articles/`, {
     method: 'POST',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+    body: JSON.stringify({
+      article: {
+        title,
+        description,
+        body,
+        tagList,
+      },
+    }),
+  });
+  return res;
+};
+
+export const editArticle = async (title, description, body, tagList, slug) => {
+  const token = getToken();
+  const res = await fetch(`${url}/articles/${slug}`, {
+    method: 'PUT',
     headers: {
       Authorization: `Token ${token}`,
       Accept: 'application/json',

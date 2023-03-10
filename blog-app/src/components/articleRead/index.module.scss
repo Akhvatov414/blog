@@ -45,9 +45,11 @@
         letter-spacing: 0em;
     }
     &__description {
+        display: flex;
+        justify-content: space-between;
         max-width: 100%;
         overflow-wrap: anywhere;
-        margin-top: 5px;
+        margin: 5px 0 0 20px;
         font-family: Inter, sans-serif;
         font-size: 12px;
         font-weight: 400;

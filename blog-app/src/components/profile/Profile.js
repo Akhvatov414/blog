@@ -2,7 +2,7 @@ import React from 'react';
 import { useForm } from 'react-hook-form';
 import { Redirect } from 'react-router-dom';
 import { connect } from 'react-redux';
-//import { toast } from 'react-toastify';
+import { toast } from 'react-toastify';
 
 import * as actions from '../../store/actions';
 import { editProfile, getUserData } from '../../store/actions';
@@ -27,7 +27,7 @@ const Profile = ({ setUserData, isAuth, userData }) => {
         console.log(body);
         setUserData(body.user.username, body.user.email, body.user.image);
       })
-      .catch((e) => console.log(e));
+      .catch((e) => toast.error(e));
     reset();
   };
   return (

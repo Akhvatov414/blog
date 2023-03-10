@@ -21,7 +21,7 @@ const Header = ({ history, isAuth, userData, setLogIn }) => {
           Realworld Blog
         </h1>
         <div className={style.header__menu}>
-          <button type="button" onClick={() => history.push('/create-article')}>
+          <button type="button" onClick={() => history.push('/new-article')}>
             Create article
           </button>
           <Link to="/profile" className="header__wrapper">
