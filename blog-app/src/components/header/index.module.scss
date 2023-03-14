@@ -6,7 +6,8 @@
     background-color: #ffffff;
 
     &__title {
-      font-family: 'Inter UI', sans-serif;
+        font-family: 'Inter UI', sans-serif;
+        cursor: pointer;
         font-size: 18px;
         line-height: 28px;
         color: #000000D9;
@@ -17,6 +18,90 @@
     &__menu {
         display: flex;
         gap: 30px;
-        align-items: center;       
+        align-items: center;
+        margin-right: 5px;       
+    }
+
+    &__button {
+        &_signIn {
+            border: none;
+            cursor: pointer;
+            font-family: 'Inter UI', sans-serif;
+            font-size: 18px;
+            line-height: 28px;
+            color: rgba(0, 0, 0, 0.85);
+            background-color: transparent;
+            &:hover{
+                text-decoration: underline;
+            }
+        }
+        &_signUp {
+            font-family: 'Inter UI', sans-serif;
+            font-size: 18px;
+            line-height: 28px;
+            color: #52c41a;
+            background-color: transparent;
+            border: 1px solid #52c41a;
+            border-radius: 5px;
+            padding: 10px 20px;
+            cursor: pointer;
+            &:hover {
+                color: #ffffff;
+                background-color: #52c41a;
+            }
+        }
+        &_create {
+            padding: 6px 10px;
+            cursor: pointer;
+            font-family: 'Inter', sans-serif;
+            background-color: transparent;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 14px;
+            line-height: 22px;
+            color: #52c41a;
+            text-decoration: none;
+            border: 1px solid #52c41a;
+            border-radius: 5px;
+        }
+        &_logOut {
+            margin-right: 20px;
+            cursor: pointer;
+            padding: 10px 15px;
+            font-family: 'Inter', sans-serif;
+            font-style: normal;
+            font-weight: 400;
+            font-size: 18px;
+            line-height: 28px;
+            border: 1px solid #000000bf;
+            border-radius: 5px;
+            background-color: transparent;
+            &:hover{
+                color: #ffffff;
+                background-color: #000000bf;
+            }
+        }
+    }
+
+    &__userImg {
+        width: 46px;
+        height: 46px;
+        border-radius: 50%;
+    }
+
+    &__text {
+        font-family: 'Inter', sans-serif;
+        font-style: normal;
+        font-weight: 400;
+        font-size: 18px;
+        line-height: 28px;
+    }
+
+    &__wrapper {
+        display: flex;
+        align-items: center;
+        gap: 13px;
+        text-decoration: none;
+        color:rgba(0, 0, 0, 0.85);
     }
 }

@@ -62,9 +62,7 @@ export const editProfile = async (username, email, password, image) => {
       },
     }),
   });
-  console.log(req);
   const res = await req.json();
-  console.log(res);
   return res;
 };
 
@@ -89,8 +87,6 @@ export const regUser = async (username, email, password) => {
     }),
   });
   const res = await req.json();
-  console.log(res);
-  console.log('Success!' + ' ' + `${username} ${email} ${password}`);
   return res;
 };
 
@@ -109,7 +105,6 @@ export const signIn = (email, password) => async (dispatch) => {
     }),
   });
   const res = await req.json();
-  console.log(res);
   if (!res.errors) {
     const {
       user: { username, token, image },
@@ -218,6 +213,34 @@ export const getUserData = async () => {
   const token = getToken();
   const req = await fetch('https://blog.kata.academy/api/user', {
     method: 'GET',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+  });
+  const res = await req.json();
+  return res;
+};
+
+export const setFavorite = async (slug) => {
+  const token = getToken();
+  const req = await fetch(`${url}/articles/${slug}/favorite`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Token ${token}`,
+      Accept: 'application/json',
+      'Content-type': 'application/json',
+    },
+  });
+  const res = await req.json();
+  return res;
+};
+
+export const deleteFavorite = async (slug) => {
+  const token = getToken();
+  const req = await fetch(`${url}/articles/${slug}/favorite`, {
+    method: 'DELETE',
     headers: {
       Authorization: `Token ${token}`,
       Accept: 'application/json',

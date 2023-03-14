@@ -21,14 +21,18 @@ const Header = ({ history, isAuth, userData, setLogIn }) => {
           Realworld Blog
         </h1>
         <div className={style.header__menu}>
-          <button type="button" onClick={() => history.push('/new-article')}>
+          <button
+            type="button"
+            className={`${style.header__button} ${style.header__button_create}`}
+            onClick={() => history.push('/new-article')}
+          >
             Create article
           </button>
-          <Link to="/profile" className="header__wrapper">
-            <div>{username}</div>
+          <Link to="/profile" className={style.header__wrapper}>
+            <div className={style.header__text}>{username}</div>
             <img src={image || defaultAvatar} className={style.header__userImg} alt="Avatar" />
           </Link>
-          <button type="button" onClick={logOut}>
+          <button type="button" className={`${style.header__button} ${style.header__button_logOut}`} onClick={logOut}>
             Log Out
           </button>
         </div>
@@ -41,10 +45,18 @@ const Header = ({ history, isAuth, userData, setLogIn }) => {
         Realworld Blog
       </h1>
       <div className={style.header__menu}>
-        <button type="button" onClick={() => history.push('/sign-in')}>
+        <button
+          type="button"
+          className={`${style.header__button} ${style.header__button_signIn}`}
+          onClick={() => history.push('/sign-in')}
+        >
           Sign in
         </button>
-        <button type="button" onClick={() => history.push('/sign-up')}>
+        <button
+          type="button"
+          className={`${style.header__button} ${style.header__button_signUp}`}
+          onClick={() => history.push('/sign-up')}
+        >
           Sign up
         </button>
       </div>

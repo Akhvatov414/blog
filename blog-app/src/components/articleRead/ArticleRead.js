@@ -5,33 +5,34 @@ import { v4 as uuidv4 } from 'uuid';
 import { format } from 'date-fns';
 import { connect } from 'react-redux';
 import { message, Popconfirm } from 'antd';
+import { HeartFilled, HeartOutlined } from '@ant-design/icons';
 
 import * as actions from '../../store/actions';
 //import ArticleItem from '../articleItem/ArticleItem';
-import { getArticle, deleteArticle } from '../../store/actions';
+import { getArticle, deleteArticle, setFavorite, deleteFavorite } from '../../store/actions';
 
 import style from './index.module.scss';
 
 const ArticleRead = ({ slug, userData, history }) => {
-  console.log(userData.username);
   const [article, setArticle] = useState({});
+  const [isFavorite, setIsFavorite] = useState(false);
   useEffect(() => {
     getArticle(slug)
       .then((item) => {
         setArticle(item);
+        setIsFavorite(item.favorited);
       })
       .catch((e) => console.log(e));
-  }, []);
+  }, [isFavorite]);
 
   if (!article.author) return;
   const {
     author: { username, image },
     createdAt,
     description,
-    //favorited,
-    favoritesCount,
     tagList,
     title,
+    favoritesCount,
     body,
   } = article;
 
@@ -42,6 +43,23 @@ const ArticleRead = ({ slug, userData, history }) => {
       </li>
     )
   );
+
+  const submitFavorite = () => {
+    setIsFavorite(!isFavorite);
+    if (isFavorite) {
+      deleteFavorite(slug).then((res) => {
+        if (res.ok) {
+          setIsFavorite(false);
+        }
+      });
+    } else {
+      setFavorite(slug).then((res) => {
+        if (res.ok) {
+          setIsFavorite(true);
+        }
+      });
+    }
+  };
 
   const confirmDelete = () => {
     deleteArticle(slug).then((res) => {
@@ -57,10 +75,10 @@ const ArticleRead = ({ slug, userData, history }) => {
   const cancelDelete = () => {
     message.error('You abort operation');
   };
-
+  const favoriteIcon = isFavorite ? <HeartFilled style={{ color: '#FF0707' }} /> : <HeartOutlined />;
   const editButtons =
     username !== userData.username ? null : (
-      <>
+      <div className={style.container}>
         <Popconfirm
           title="Delete the article"
           description="Are you sure to delete this article?"
@@ -80,7 +98,7 @@ const ArticleRead = ({ slug, userData, history }) => {
         >
           Edit
         </button>
-      </>
+      </div>
     );
 
   return (
@@ -90,8 +108,8 @@ const ArticleRead = ({ slug, userData, history }) => {
           <button type="button" className={style.articleItem__header} onClick={() => history.push(`/articles/${slug}`)}>
             {title}
           </button>
-          <button type="button" className={style.articleItem__likeButton}>
-            {favoritesCount}
+          <button type="button" className={style.articleItem__likeButton} onClick={submitFavorite}>
+            {favoriteIcon} {favoritesCount}
           </button>
           <ul className={style.articleItem__tagList}>{tagsList}</ul>
         </div>

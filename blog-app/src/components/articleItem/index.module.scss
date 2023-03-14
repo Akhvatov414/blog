@@ -55,6 +55,12 @@
         letter-spacing: 0;
         text-align: left;
     }
+    &__likeButton {
+        border: none;
+        background-color: #FFFFFF;
+        font-size: 12px;
+        cursor: pointer;
+    }
     &__userInfo{
         display: flex;
         gap: 12px;

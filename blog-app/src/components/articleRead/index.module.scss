@@ -3,6 +3,7 @@
     flex-direction: row;    
     background-color: #FFFFFF;
     justify-content: space-between;
+
     &_preview{
         display: flex;
         flex-direction: column;   
@@ -26,6 +27,7 @@
         border: none;
         background-color: #FFFFFF;
         font-size: 12px;
+        cursor: pointer;
     }
     &__tagList {
         list-style: none;
@@ -56,6 +58,7 @@
         line-height: 22px;
         letter-spacing: 0;
         text-align: left;
+        color: rgba(0, 0, 0, 0.5);
     }
     &__userInfo{
         display: flex;
@@ -94,4 +97,35 @@
         flex-direction: row;
         justify-content: space-between;
     }
+}
+
+.button{
+    border-radius: 5px;
+    cursor: pointer;
+    background-color: transparent;
+    padding: 9px 19px;
+    text-decoration: none;
+    &_delete {
+        border: 1px solid #f5222d;
+        color: #f5222d;
+        &:hover{
+            color: #FFFFFF;
+            background-color: #f5222d;
+        }
+    }
+    &_edit {
+        border: 1px solid #52c41a;
+        color: #52c41a;
+        &:hover{
+            color: #FFFFFF;
+            background-color: #52c41a;;
+        }
+    }
+}
+
+.container {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+    margin-right: 15px;
 }

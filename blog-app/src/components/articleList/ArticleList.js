@@ -19,7 +19,7 @@ const ArticleList = ({ getArticles, articles, page = 1 }) => {
   ));
   return (
     <div className={style.wrapperList}>
-      <ul className="List">{getList}</ul>
+      <ul className={style.list}>{getList}</ul>
       <PaginationList currentPage={page} />
     </div>
   );

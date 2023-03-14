@@ -8,6 +8,7 @@ import * as actions from '../../store/actions';
 import { editProfile, getUserData } from '../../store/actions';
 
 import 'react-toastify/dist/ReactToastify.css';
+import style from './index.module.scss';
 
 const Profile = ({ setUserData, isAuth, userData }) => {
   const {
@@ -31,77 +32,81 @@ const Profile = ({ setUserData, isAuth, userData }) => {
     reset();
   };
   return (
-    <div className="wrapper">
-      <div className="title">
+    <div className={style.wrapper}>
+      <div className={style.wrapper__title}>
         <h2>Edit Profile</h2>
       </div>
-      <form onSubmit={handleSubmit(onSubmit)} className="form">
-        <label htmlFor="username" className="form__field">
+      <form onSubmit={handleSubmit(onSubmit)} className={style.wrapper__form}>
+        <label htmlFor="username" className={style.wrapper__label}>
           Username
+          <br />
+          <input
+            id="username"
+            type="text"
+            placeholder="username"
+            className={style.wrapper__input}
+            defaultValue={userData.username}
+            {...register('username', {
+              required: true,
+              minLength: 3,
+              maxLength: 20,
+              pattern: {
+                value: /^[a-z0-9]*$/,
+                message: 'You can only use lowercase English letters and numbers',
+              },
+            })}
+          />
         </label>
-        <input
-          id="username"
-          type="text"
-          placeholder="username"
-          className="form__input"
-          defaultValue={userData.username}
-          {...register('username', {
-            required: true,
-            minLength: 3,
-            maxLength: 20,
-            pattern: {
-              value: /^[a-z0-9]*$/,
-              message: 'You can only use lowercase English letters and numbers',
-            },
-          })}
-        />
-        <label htmlFor="email" className="form__field">
+        <label htmlFor="email" className={style.wrapper__label}>
           Email
+          <br />
+          <input
+            type="email"
+            placeholder="email address"
+            className={style.wrapper__input}
+            defaultValue={userData.email}
+            {...register('email', {
+              required: true,
+              pattern: {
+                value: /^([a-z0-9_])([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
+                message: 'Start with lowercase letter and use only valid characters',
+              },
+            })}
+          />
         </label>
-        <input
-          type="email"
-          placeholder="email address"
-          className="form__input"
-          defaultValue={userData.email}
-          {...register('email', {
-            required: true,
-            pattern: {
-              value: /^([a-z0-9_])([A-Za-z0-9_\-.])+@([A-Za-z0-9_\-.])+\.([A-Za-z]{2,4})$/,
-              message: 'Start with lowercase letter and use only valid characters',
-            },
-          })}
-        />
-        <label htmlFor="password" className="form__field">
+        <label htmlFor="password" className={style.wrapper__label}>
           New password
+          <br />
+          <input
+            id="password"
+            type="password"
+            placeholder="Type yor new password"
+            className={style.wrapper__input}
+            {...register('password', {
+              required: true,
+              minLength: 6,
+              maxLength: 40,
+            })}
+          />
         </label>
-        <input
-          id="password"
-          type="password"
-          placeholder="Type yor new password"
-          className="form__input"
-          {...register('password', {
-            required: true,
-            minLength: 6,
-            maxLength: 40,
-          })}
-        />
-        <label htmlFor="avatar" className="form__field">
+        <label htmlFor="avatar" className={style.wrapper__label}>
           Avatar image
+          <br />
+          <input
+            id="avatar"
+            type="url"
+            placeholder="Avatar"
+            className={style.wrapper__input}
+            defaultValue={userData.image || null}
+            {...register('image', {
+              pattern: {
+                value: /^(http(s):\/\/.)[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&/=]*)$/,
+                message: 'correct url is required',
+              },
+            })}
+          />
         </label>
-        <input
-          id="avatar"
-          type="url"
-          placeholder="Avatar"
-          className="form__input"
-          defaultValue={userData.image || null}
-          {...register('image', {
-            pattern: {
-              value: /^(http(s):\/\/.)[-a-zA-Z0-9@:%._~#=]{2,256}\.[a-z]{2,6}\b([-a-zA-Z0-9@:%_.~#?&/=]*)$/,
-              message: 'correct url is required',
-            },
-          })}
-        />
-        <input type="submit" className="form__button" value="Save" />
+        <input type="submit" className={style.wrapper__button} value="Save" />
       </form>
     </div>
   );
