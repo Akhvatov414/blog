@@ -8,6 +8,11 @@ const setArtList = (articles, totalCount) => ({
   totalCount,
 });
 
+const setLoadingStatus = (status) => ({
+  type: 'setLoadingStatus',
+  status,
+});
+
 // const setArticle = (article) => ({
 //   type: 'setArticle',
 //   article,
@@ -131,12 +136,13 @@ export const getArticles =
       });
       const { articles, articlesCount } = await req.json();
       dispatch(setArtList(articles, articlesCount));
+      dispatch(setLoadingStatus('Loaded'));
     } catch (e) {
-      console.log(e);
+      dispatch(setLoadingStatus('Error'));
     }
   };
 
-export const getArticle = async (slug) => {
+export const getArticle = async (slug, dispatch) => {
   try {
     const token = getToken();
     const req = await fetch(`${url}/articles/${slug}`, {
@@ -150,7 +156,7 @@ export const getArticle = async (slug) => {
     return { ...article };
     //dispatch(setArticle(article));
   } catch (e) {
-    console.log(e);
+    dispatch(setLoadingStatus('Error'));
   }
 };
 

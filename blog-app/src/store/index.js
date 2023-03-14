@@ -3,6 +3,7 @@ import thunk from 'redux-thunk';
 
 import articleReducer from './reducers/articleReducer';
 import articlesReducer from './reducers/articlesReducer';
+import loadingReducer from './reducers/loadingReducer';
 import loginReducer from './reducers/loginReducer';
 
 const composeEnhancers =
@@ -16,6 +17,7 @@ const reducerList = combineReducers({
   articles: articlesReducer,
   article: articleReducer,
   userData: loginReducer,
+  isLoading: loadingReducer,
 });
 
 const store = createStore(reducerList, composeEnhancers(applyMiddleware(thunk)));
